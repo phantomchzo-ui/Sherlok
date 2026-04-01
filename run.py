@@ -11,7 +11,6 @@ async def main():
     dp = Dispatcher()
     bot = Bot(token=settings.TOKEN)
     dp.include_routers(router, router_payment)
-    #dp.startup.register(startup)
     await dp.start_polling(bot)
 
 try:
