@@ -12,6 +12,7 @@ class Base(DeclarativeBase):
 class Users(Base):
     __tablename__ = 'users'
 
+
     id: Mapped[int] = mapped_column(primary_key=True)
     tg_id: Mapped[str] = mapped_column(nullable=False, unique=True)
     name: Mapped[str]
@@ -35,10 +36,6 @@ class Persons(Base):
     image: Mapped[str] = mapped_column(String(256))
 
 
-async def create_models():
-    async with engine.begin() as conn:
-        #await conn.run_sync(Base.metadata.drop_all)
-        await conn.run_sync(Base.metadata.create_all)
 
 
 

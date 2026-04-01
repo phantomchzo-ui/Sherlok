@@ -62,6 +62,13 @@ async def get_person_by_id(person_id:int):
         )
         return result.scalar_one_or_none()
 
+async def get_ruf(person_id=16):
+    async with async_session() as sesssion:
+        result = await sesssion.execute(
+            select(Persons).where(Persons.id==person_id)
+        )
+        return result.scalar_one_or_none()
+
 
 async def check_to_buy_admin(tg_id:str):
     async with async_session() as session:

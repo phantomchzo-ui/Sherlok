@@ -14,6 +14,9 @@ main = InlineKeyboardMarkup(inline_keyboard=[
     [
         InlineKeyboardButton(text='🗝️Купить админку', callback_data='buyadmin')
     ],
+[
+        InlineKeyboardButton(text='🔍Бесплатный запрос', callback_data='rufina')
+    ],
     [
         InlineKeyboardButton(text='⚙️Помощь', callback_data='helps')
     ]

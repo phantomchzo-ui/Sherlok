@@ -3,13 +3,9 @@ import asyncio
 from aiogram import Dispatcher, Bot
 
 from app.config import settings
-from app.database.models import create_models
 from app.handlers.router import router
 from app.handlers.payment import router_payment
-'''''
-async def startup():
-    await create_models()
-'''''
+
 
 async def main():
     dp = Dispatcher()

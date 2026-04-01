@@ -1,12 +1,13 @@
+import asyncio
+
 from aiogram import Router, F
 from aiogram.filters import CommandStart, Command
-from aiogram.types import Message, CallbackQuery
-
+from aiogram.types import Message, CallbackQuery, FSInputFile
 
 from app.database.database import async_session
 from app.database.models import Users
 from app.database.requests import (check_user, check_admin, get_all_data, check_stars, get_persons_with_id,
-                                   show_profile_user, get_person_by_id, check_to_buy_admin)
+                                   show_profile_user, get_person_by_id, check_to_buy_admin, get_ruf)
 from app.keyboards import show_persons, main, back_button, balance_menu, admin_button
 
 router = Router()
@@ -133,15 +134,45 @@ async def cmd_help(callback: CallbackQuery):
     )
 
 
+@router.callback_query(F.data.startswith('rufina'))
+async def get_rufina(callback: CallbackQuery):
+    person = await get_ruf()
+
+    await callback.message.delete()
+    if person:
+        await callback.message.answer_photo(
+            photo=person.image,
+            caption=f"────────────────\n"
+                    f"👤 <b>ФИО:</b> {person.name}\n"
+                    f"📱 <b>Телефон:</b> {person.phone}\n"
+                    f"🆔 <b>ИИН:</b> {person.iin}\n"
+                    f"🏠 <b>Адрес:</b> {person.address}\n"
+                    f"📧 <b>Telegram:</b> {person.email}\n"
+                    f"────────────────",
+            parse_mode='HTML',
+            reply_markup=back_button
+        )
+        await callback.answer()
+
+
+
+
 @router.callback_query(F.data.startswith('back_to_main'))
 async def back_to_main_menu(callback: CallbackQuery):
-    #await callback.answer('Возврат в меню')
-    await callback.message.edit_text("Привет! 👋\n"
-    "Я помогу тебе найти информацию о блогерах, тиктокерах и других создателях контента. \n"
-    "Просто нажми на /information чтобы посмотреть какие блогеры у нас есть в база данных."
-                                     " Чтобы узнать подробнее нажмите на кнопку ⚙️Помощь", reply_markup=main
-                         )
+    # удаляем сообщение с фото
+    await callback.message.delete()
 
+    # отправляем новое текстовое сообщение с меню
+    await callback.message.answer(
+        text="Привет! 👋\n"
+             "Я помогу тебе найти информацию о блогерах, тиктокерах и других создателях контента. \n"
+             "Просто нажми на /information чтобы посмотреть какие блогеры у нас есть в база данных."
+             " Чтобы узнать подробнее нажмите на кнопку ⚙️Помощь",
+        reply_markup=main
+    )
+
+    # подтверждаем нажатие кнопки
+    await callback.answer()
 
 
 @router.callback_query(F.data.startswith('balance'))
@@ -176,6 +207,8 @@ async def pay_admin(callback: CallbackQuery):
         await callback.message.answer('Недостаточно средств, пополните баланс', reply_markup=main)
 
     await callback.message.delete()
+
+
 
 @router.message(Command('data'))
 async def get_data(message: Message):
@@ -220,6 +253,7 @@ async def show_all_data_for_admins(callback: CallbackQuery):
         await callback.message.answer('Вы не админ')
 
     await callback.message.delete()
+
 
 
 @router.message(F.photo)
