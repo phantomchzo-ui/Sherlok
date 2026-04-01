@@ -3,8 +3,6 @@ from sqlalchemy.orm import DeclarativeBase, Mapped, mapped_column
 from datetime import datetime, timezone
 from sqlalchemy.dialects.postgresql import TIMESTAMP
 
-from app.database.database import engine
-
 
 class Base(DeclarativeBase):
     pass

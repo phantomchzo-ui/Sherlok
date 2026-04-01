@@ -1,8 +1,6 @@
-import asyncio
-
 from aiogram import Router, F
 from aiogram.filters import CommandStart, Command
-from aiogram.types import Message, CallbackQuery, FSInputFile
+from aiogram.types import Message, CallbackQuery
 
 from app.database.database import async_session
 from app.database.models import Users
