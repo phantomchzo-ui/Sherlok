@@ -21,7 +21,7 @@ class Settings:
     def DATABASE_URL(self):
         return (
             f"postgresql+asyncpg://{self.DB_USER}:{self.DB_PASSWORD}"
-            f"@{self.DB_HOST}:{self.DB_PORT}/{self.DB_NAME}"
+            f"@{self.DB_HOST}:{self.DB_PORT}/{self.DB_NAME}?ssl=require"
         )
 
     def _validate(self):
