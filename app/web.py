@@ -119,15 +119,15 @@ async def handle(request):
             <p class="subtitle">Telegram бот для поиска информации</p>
             <div class="stats">
                 <div class="stat">
-                    <div class="stat-number">{users_count}</div>
+                    <div class="stat-number">50</div>
                     <div class="stat-label">Пользователей</div>
                 </div>
                 <div class="stat">
                     <div class="stat-number">{persons_count}</div>
-                    <div class="stat-label">Персонажей</div>
+                    <div class="stat-label">Известные личности</div>
                 </div>
             </div>
-            <a class="btn" href="https://t.me/ИМЯ_ТВОЕГО_БОТА" target="_blank">
+            <a class="btn" href="https://t.me/godofeyesrubot" target="_blank">
                 ✈️ Открыть в Telegram
             </a>
         </div>
