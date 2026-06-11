@@ -7,7 +7,6 @@ from app.handlers.payment import router_payment
 
 
 async def handle(request):
-    """Минимальный веб-сервер для Render"""
     return web.Response(text="Bot is running")
 
 
